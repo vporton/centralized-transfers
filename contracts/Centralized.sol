@@ -43,6 +43,10 @@ abstract contract Centralized is Context {
         return _msgSender() == serverAddressQuery.server();
     }
 
+    function canTransfer(address _account) internal view returns (bool) {
+        return isUserLocked(_account) ? isServer() : _msgSender() == _account;
+    }
+
     modifier onlyUnlocked {
         require(!isUserLocked(_msgSender()), "Transfers are locked.");
         _;
@@ -50,6 +54,11 @@ abstract contract Centralized is Context {
 
     modifier onlyServer {
         require(isServer(), "Only server.");
+        _;
+    }
+
+    modifier transferPermit(address _account) {
+        require(canTransfer(_account), "Transfers locked.");
         _;
     }
 }

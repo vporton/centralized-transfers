@@ -10,8 +10,10 @@ contract CentralizedERC20 is Centralized, ERC20 {
         Centralized(_serverAddressQuery) ERC20(name_, symbol_)
     { }
 
-    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
-        require(isServer() || !isUserLocked(from), "Centralized transfers mode.");
+    function _beforeTokenTransfer(address from, address to, uint256 amount)
+        transferPermit(from)
+        internal virtual override
+    {
         super._beforeTokenTransfer(from, to, amount);
     }
 }
