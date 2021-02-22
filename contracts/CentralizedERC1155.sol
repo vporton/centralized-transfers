@@ -3,11 +3,11 @@ pragma solidity ^0.7.0;
 
 import { ERC1155 } from "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import { Centralized } from "./Centralized.sol";
-import { ServerAddressQuery } from "./ServerAddressQuery.sol";
+import { TokenLocker } from "./TokenLocker.sol";
 
 contract CentralizedERC1155 is Centralized, ERC1155 {
-    constructor(ServerAddressQuery _serverAddressQuery, string memory uri_)
-        Centralized(_serverAddressQuery) ERC1155(uri_)
+    constructor(TokenLocker _locker, string memory uri_)
+        Centralized(_locker) ERC1155(uri_)
     { }
 
     function _beforeTokenTransfer(
