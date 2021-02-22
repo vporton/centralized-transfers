@@ -1,6 +1,6 @@
 {
   "name": "@vporton/centralized-transfers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": " ERC-20/721/1155 tokens with support of locking for centralized transfers mode. It locks all tokens on a user account. Useful for gaming. ",
   "repository": "git@github.com:vporton/centralized-transfers.git",
   "author": "Victor Porton <porton@narod.ru>",
