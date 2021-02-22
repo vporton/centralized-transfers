@@ -19,20 +19,24 @@ abstract contract Centralized is Context {
     function setMaxLockTime(uint _maxLockTime) public {
         require(_maxLockTime <= maxLockTimeHardLimit, "Trying to violate the hard time limit.");
         maxLockTime = _maxLockTime;
+        emit SetMaxLockTime(_maxLockTime);
     }
 
     function setMaxLockTimeHardLimit(uint _maxLockTimeHardLimit) public {
         require(_maxLockTimeHardLimit > maxLockTimeHardLimit, "Trying to increase the hard limit.");
         maxLockTimeHardLimit = _maxLockTimeHardLimit;
+        emit SetMaxLockTimeHardLimit(_maxLockTimeHardLimit);
     }
 
     function lockUser(uint _lockTime) public {
         require(_lockTime <= maxLockTime, "maxLockTime violated.");
         userUnlockTimes[_msgSender()] = block.timestamp + _lockTime;
+        emit LockUser(_lockTime);
     }
 
     function unlockUser(address _account) onlyServer public {
         userUnlockTimes[_account] = 0;
+        emit UnlockUser(_account);
     }
 
     function isUserLocked(address _account) internal view returns (bool) {
@@ -61,4 +65,13 @@ abstract contract Centralized is Context {
         require(canTransfer(_account), "Transfers locked.");
         _;
     }
+
+    event SetMaxLockTime(uint _maxLockTime);
+
+    event SetMaxLockTimeHardLimit(uint maxLockTimeHardLimit);
+
+    event LockUser(uint lockTime);
+
+    /// Not emitted on timer unlocks.
+    event UnlockUser(address account);
 }
