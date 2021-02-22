@@ -1,5 +1,13 @@
 {
-  "name": "hardhat-project",
+  "name": "@vporton/centralized-transfers",
+  "version": "1.0.0",
+  "description": " ERC-20/721/1155 tokens with support of locking for centralized transfers mode. It locks all tokens on a user account. Useful for gaming. ",
+  "repository": "git@github.com:vporton/centralized-transfers.git",
+  "author": "Victor Porton <porton@narod.ru>",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "build": "hardhat compile"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
