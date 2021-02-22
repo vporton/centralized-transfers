@@ -33,7 +33,7 @@ abstract contract Centralized is Context {
         emit SetMaxLockTimeHardLimit(_maxLockTimeHardLimit);
     }
 
-    function lockUser(uint _lockTime) public {
+    function lockUser(uint _lockTime) onlyUnlocked public {
         require(_lockTime <= maxLockTime, "maxLockTime violated.");
         userUnlockTimes[_msgSender()] = block.timestamp + _lockTime;
         emit LockUser(_msgSender(), _lockTime);
