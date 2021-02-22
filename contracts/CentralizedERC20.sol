@@ -5,8 +5,6 @@ import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import { Centralized } from "./Centralized.sol";
 
 abstract contract CentralizedERC20 is Centralized, ERC20 {
-    using SafeMath for uint256;
-
     constructor(string memory name_, string memory symbol_)
         ERC20(name_, symbol_)
     { }
