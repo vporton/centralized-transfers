@@ -35,8 +35,12 @@ abstract contract Centralized is Context {
         userUnlockTimes[_account] = 0;
     }
 
-    function isUserLocked(address _account) public view returns (bool) {
+    function isUserLocked(address _account) internal view returns (bool) {
         return userUnlockTimes[_account] != 0 && userUnlockTimes[_account] > block.timestamp;
+    }
+
+    function isServer() internal view returns (bool) {
+        return _msgSender() == serverAddressQuery.server();
     }
 
     modifier onlyUnlocked {
@@ -45,7 +49,7 @@ abstract contract Centralized is Context {
     }
 
     modifier onlyServer {
-        require(_msgSender() == serverAddressQuery.server(), "Only server.");
+        require(isServer(), "Only server.");
         _;
     }
 }

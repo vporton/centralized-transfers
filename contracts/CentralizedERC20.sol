@@ -11,4 +11,9 @@ abstract contract CentralizedERC20 is Centralized, ERC20 {
     constructor(string memory name_, string memory symbol_)
         ERC20(name_, symbol_)
     { }
+
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
+        require(isServer() || !isUserLocked(from), "Centralized transfers mode.");
+        super._beforeTokenTransfer(from, to, amount);
+    }
 }
