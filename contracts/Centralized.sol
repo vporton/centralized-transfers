@@ -21,7 +21,7 @@ abstract contract Centralized is Context {
         maxLockTime = _maxLockTime;
     }
 
-    function setmaxLockTimeHardLimit(uint _maxLockTimeHardLimit) public {
+    function setMaxLockTimeHardLimit(uint _maxLockTimeHardLimit) public {
         require(_maxLockTimeHardLimit > maxLockTimeHardLimit, "Trying to increase the hard limit.");
         maxLockTimeHardLimit = _maxLockTimeHardLimit;
     }
