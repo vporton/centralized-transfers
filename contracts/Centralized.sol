@@ -4,6 +4,7 @@ pragma solidity ^0.7.0;
 import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 import { ServerAddressQuery } from "./ServerAddressQuery.sol";
 
+// TODO: Do we need maxLockTime? The user could choose himself. But we may hold his privkey in the game app.
 abstract contract Centralized is Context {
     ServerAddressQuery serverAddressQuery;
 
