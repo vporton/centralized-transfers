@@ -3,5 +3,5 @@ pragma solidity ^0.7.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-abstract contract Instant is Context {
+abstract contract Centralized is Context {
 }
