@@ -16,6 +16,10 @@ abstract contract Centralized is Context {
         serverAddressQuery = _serverAddressQuery;
     }
 
+    function setServerAddressQuery(ServerAddressQuery _serverAddressQuery) public {
+        serverAddressQuery = _serverAddressQuery;
+    }
+
     function setMaxLockTime(uint _maxLockTime) public {
         require(_maxLockTime <= maxLockTimeHardLimit, "Trying to violate the hard time limit.");
         maxLockTime = _maxLockTime;
@@ -44,7 +48,7 @@ abstract contract Centralized is Context {
     }
 
     function isServer() internal view returns (bool) {
-        return _msgSender() == serverAddressQuery.server();
+        return address(serverAddressQuery) != address(0) && _msgSender() == serverAddressQuery.server();
     }
 
     function canTransfer(address _account) internal view returns (bool) {
