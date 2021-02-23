@@ -18,7 +18,7 @@ contract CentralizedERC1155 is Centralized, ERC1155 {
         uint256[] memory amounts,
         bytes memory data
     )
-        transferPermit(from)
+        centralize(from)
         internal virtual override
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
