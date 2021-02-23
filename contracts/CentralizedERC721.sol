@@ -11,6 +11,6 @@ contract CentralizedERC721 is Centralized, ERC721 {
     { }
 
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual override returns (bool) {
-        return super._isApprovedOrOwner(spender, tokenId) && canTransfer(spender);
+        return super._isApprovedOrOwner(spender, tokenId) && canCentralized(spender);
     }
 }

@@ -3,10 +3,10 @@ pragma solidity ^0.7.0;
 
 import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 import { ServerAddressQuery } from "./ServerAddressQuery.sol";
+import { Chain } from "./Chain.sol";
 
-// TODO: Do we need maxLockTime? The user could choose himself. But we may hold his privkey in the game app.
 // FIXME: `set*` functions need to require that the request comes from a DAO.
-abstract contract TokenLocker is Context {
+abstract contract TokenLocker is Context, Chain {
     ServerAddressQuery serverAddressQuery;
 
     uint public maxLockTime;
@@ -42,6 +42,13 @@ abstract contract TokenLocker is Context {
         emit LockUser(_msgSender(), _lockTime);
     }
 
+    function lockUserByThirdParty(uint _lockTime, address _initiator, bytes32 sigR, bytes32 sigS, uint8 sigV)
+        commitOperation(_initiator, abi.encodePacked(_lockTime), sigR, sigS, sigV)
+        public
+    {
+        lockUser(_lockTime);
+    }
+
     function unlockUser(address _account) onlyServer public {
         userUnlockTimes[_account] = 0;
         emit UnlockUser(_account);
@@ -55,7 +62,7 @@ abstract contract TokenLocker is Context {
         return address(serverAddressQuery) != address(0) && _msgSender() == serverAddressQuery.server();
     }
 
-    function canTransfer(address _account) public view returns (bool) {
+    function canCentralized(address _account) public view returns (bool) {
         return isUserLocked(_account) ? isServer() : _msgSender() == _account;
     }
 

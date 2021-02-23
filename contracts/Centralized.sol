@@ -5,7 +5,6 @@ import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 import { ServerAddressQuery } from "./ServerAddressQuery.sol";
 import { TokenLocker } from "./TokenLocker.sol";
 
-// TODO: Do we need maxLockTime? The user could choose himself. But we may hold his privkey in the game app.
 abstract contract Centralized is Context {
     TokenLocker public locker;
 
@@ -21,8 +20,8 @@ abstract contract Centralized is Context {
         return locker.isServer();
     }
 
-    function canTransfer(address _account) internal view returns (bool) {
-        return locker.canTransfer(_account);
+    function canCentralized(address _account) internal view returns (bool) {
+        return locker.canCentralized(_account);
     }
 
     modifier onlyUnlocked {
@@ -30,9 +29,8 @@ abstract contract Centralized is Context {
         _;
     }
 
-    // TODO: Rename.
-    modifier transferPermit(address _account) {
-        require(canTransfer(_account), "Transfers locked.");
+    modifier allowCentralized(address _account) {
+        require(canCentralized(_account), "Transfers locked.");
         _;
     }
 }

@@ -11,7 +11,7 @@ contract CentralizedERC20 is Centralized, ERC20 {
     { }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount)
-        transferPermit(from)
+        allowCentralized(from)
         internal virtual override
     {
         super._beforeTokenTransfer(from, to, amount);
