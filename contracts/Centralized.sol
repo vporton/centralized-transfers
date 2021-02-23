@@ -30,7 +30,7 @@ abstract contract Centralized is Context {
         _;
     }
 
-    modifier centralize(address _account) {
+    modifier transferPermit(address _account) {
         require(canTransfer(_account), "Transfers locked.");
         _;
     }
